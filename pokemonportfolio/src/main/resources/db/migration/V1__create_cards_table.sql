@@ -1,0 +1,7 @@
+CREATE TABLE cards(
+    id UUID PRIMARY KEY,
+    external_id VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    set_name VARCHAR(255) NOT NULL,
+    language VARCHAR(50) NOT NULL
+);
