@@ -13,7 +13,7 @@ public class RenameCollectionUseCase {
         this.collectionRepository = collectionRepository;
     }
 
-    private void execute(UUID userId, UUID collectionId, String newName) {
+    public Collection execute(UUID userId, UUID collectionId, String newName) {
         Collection collection = collectionRepository.findById(collectionId)
                 .orElseThrow(() -> new IllegalArgumentException("Collection not found"));
 
@@ -23,6 +23,6 @@ public class RenameCollectionUseCase {
 
         collection.rename(newName);
 
-        collectionRepository.save(collection);
+        return collectionRepository.save(collection);
     }
 }

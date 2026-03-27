@@ -15,9 +15,9 @@ public class AddItemToCollectionUseCase {
         this.collectionRepository = collectionRepository;
     }
 
-    public void execute(
-            UUID userId,
+    public Collection execute(
             UUID collectionId,
+            UUID userId,
             UUID cardId,
             int quantity,
             String condition
@@ -39,6 +39,6 @@ public class AddItemToCollectionUseCase {
 
         collection.addItem(item);
 
-        collectionRepository.save(collection);
+        return collectionRepository.save(collection);
     }
 }

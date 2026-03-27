@@ -5,24 +5,22 @@ import com.erik.pokemonportfolio.collection.domain.repository.CollectionReposito
 
 import java.util.UUID;
 
-public class RemoveItemFromCollectionUseCase {
+public class GetCollectionByIdUseCase {
 
     private final CollectionRepository  collectionRepository;
 
-    public RemoveItemFromCollectionUseCase(CollectionRepository collectionRepository) {
+    public GetCollectionByIdUseCase(CollectionRepository collectionRepository) {
         this.collectionRepository = collectionRepository;
     }
 
-    public Collection execute(UUID userId, UUID collectionId, UUID itemId) {
+    public Collection execute(UUID collectionId, UUID userId) {
         Collection collection = collectionRepository.findById(collectionId)
                 .orElseThrow(() -> new IllegalArgumentException("Collection not found"));
 
         if (!collection.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("User is not allowed to modify this collection");
+            throw new IllegalArgumentException("Collection does not belong to the informed user");
         }
 
-        collection.removeItem(itemId);
-
-        return collectionRepository.save(collection);
+        return collection;
     }
 }

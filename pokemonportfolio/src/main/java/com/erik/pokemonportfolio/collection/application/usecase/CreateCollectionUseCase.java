@@ -14,7 +14,7 @@ public class CreateCollectionUseCase {
         this.collectionRepository = collectionRepository;
     }
 
-    public UUID execute(UUID userId, String name) {
+    public Collection execute(UUID userId, String name) {
         Collection collection = new Collection(
                 UUID.randomUUID(),
                 userId,
@@ -24,6 +24,6 @@ public class CreateCollectionUseCase {
 
         collectionRepository.save(collection);
 
-        return collection.getId();
+        return collection;
     }
 }
