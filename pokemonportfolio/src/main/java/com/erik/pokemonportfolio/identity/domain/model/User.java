@@ -9,9 +9,10 @@ public class User {
     private final UUID id;
     private final String email;
     private String displayName;
+    private final String passwordHash;
     private final LocalDateTime createdAt;
 
-    public User(UUID id, String email, String displayName, LocalDateTime createdAt) {
+    public User(UUID id, String email, String displayName,String passwordHash, LocalDateTime createdAt) {
         if (id == null) {
             throw new IllegalArgumentException("User id cannot be null");
         }
@@ -24,6 +25,10 @@ public class User {
             throw new IllegalArgumentException("User display name cannot be blank");
         }
 
+        if (passwordHash == null || passwordHash.isBlank()) {
+            throw new IllegalArgumentException("User passwordHash cannot be blank");
+        }
+
         if (createdAt == null) {
             throw new IllegalArgumentException("User createdAt cannot be null");
         }
@@ -31,6 +36,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.displayName = displayName;
+        this.passwordHash = passwordHash;
         this.createdAt = createdAt;
     }
 
@@ -51,6 +57,10 @@ public class User {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public LocalDateTime getCreatedAt() {

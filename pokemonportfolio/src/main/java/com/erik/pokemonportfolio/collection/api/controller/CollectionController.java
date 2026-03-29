@@ -94,8 +94,8 @@ public class CollectionController {
     ) {
         Collection collection = removeItemFromCollectionUseCase.execute(
                 collectionId,
-                itemId,
-                userid
+                userid,
+                itemId
         );
 
         return ResponseEntity.ok(toResponse(collection));

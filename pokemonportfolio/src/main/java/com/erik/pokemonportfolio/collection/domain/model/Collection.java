@@ -1,5 +1,7 @@
 package com.erik.pokemonportfolio.collection.domain.model;
 
+import com.erik.pokemonportfolio.collection.domain.exception.CollectionItemNotFoundException;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -61,7 +63,7 @@ public class Collection {
         boolean removed = this.items.removeIf(item -> item.getId().equals(itemId));
 
         if (!removed) {
-            throw new IllegalArgumentException("Collection item not found");
+            throw new CollectionItemNotFoundException("Collection item not found");
         }
     }
 

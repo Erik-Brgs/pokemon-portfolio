@@ -1,4 +1,4 @@
-package com.erik.pokemonportfolio.catalog.api.dto;
+package com.erik.pokemonportfolio.shared.api.dto;
 
 import java.time.LocalDateTime;
 
