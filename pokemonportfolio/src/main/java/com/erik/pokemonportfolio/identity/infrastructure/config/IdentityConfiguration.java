@@ -6,6 +6,7 @@ import com.erik.pokemonportfolio.identity.application.usecase.RegisterUserUseCas
 import com.erik.pokemonportfolio.identity.domain.repository.UserRepository;
 import com.erik.pokemonportfolio.identity.infrastructure.persistence.repository.JpaUserRepository;
 import com.erik.pokemonportfolio.identity.infrastructure.persistence.repository.SpringDataUserRepository;
+import com.erik.pokemonportfolio.identity.infrastructure.security.JwtAuthenticationFilter;
 import com.erik.pokemonportfolio.identity.infrastructure.service.JwtTokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -57,5 +58,17 @@ public class IdentityConfiguration {
             TokenService tokenService
     ) {
         return new LoginUseCase(userRepository, passwordEncoder, tokenService);
+    }
+
+    @Bean
+    public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+        return username -> {
+            throw new org.springframework.security.core.userdetails.UsernameNotFoundException("Not used");
+        };
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(TokenService tokenService) {
+        return new JwtAuthenticationFilter(tokenService);
     }
 }

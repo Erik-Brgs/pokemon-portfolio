@@ -6,6 +6,7 @@ import com.erik.pokemonportfolio.collection.domain.model.Collection;
 import com.erik.pokemonportfolio.collection.domain.model.CollectionItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +37,11 @@ public class CollectionController {
     }
 
     @PostMapping
-    public ResponseEntity<CollectionResponse> create(@RequestBody CreateCollectionRequest request) {
+    public ResponseEntity<CollectionResponse> create(
+            @AuthenticationPrincipal String userId,
+            @RequestBody CreateCollectionRequest request) {
         Collection collection = createCollectionUseCase.execute(
-                request.getUserId(),
+                UUID.fromString(userId),
                 request.getName()
         );
 
@@ -49,9 +52,9 @@ public class CollectionController {
     @GetMapping("/{collectionId}")
     public ResponseEntity<CollectionResponse> getById(
             @PathVariable UUID collectionId,
-            @RequestParam("userId") UUID userid
+            @AuthenticationPrincipal String userId
     ) {
-        Collection collection = getCollectionByIdUseCase.execute(collectionId, userid);
+        Collection collection = getCollectionByIdUseCase.execute(collectionId, UUID.fromString(userId));
 
         return ResponseEntity.ok(toResponse(collection));
     }
@@ -59,11 +62,12 @@ public class CollectionController {
     @PostMapping("/{collectionId}/items")
     public ResponseEntity<CollectionResponse> addItem(
             @PathVariable UUID collectionId,
+            @AuthenticationPrincipal String userId,
             @RequestBody AddCollectionItemRequest request
     ) {
         Collection collection = addItemToCollectionUseCase.execute(
                 collectionId,
-                request.getUserId(),
+                UUID.fromString(userId),
                 request.getCardId(),
                 request.getQuantity(),
                 request.getCondition()
@@ -75,11 +79,12 @@ public class CollectionController {
     @PatchMapping("/{collectionId}")
     public ResponseEntity<CollectionResponse> rename(
             @PathVariable UUID collectionId,
+            @AuthenticationPrincipal String userId,
             @RequestBody RenameCollectionRequest request
     ) {
         Collection collection = renameCollectionUseCase.execute(
                 collectionId,
-                request.getUserId(),
+                UUID.fromString(userId),
                 request.getName()
         );
 
@@ -90,11 +95,11 @@ public class CollectionController {
     public ResponseEntity<CollectionResponse> removeItem(
             @PathVariable UUID collectionId,
             @PathVariable UUID itemId,
-            @RequestParam("userId") UUID userid
+            @AuthenticationPrincipal String userId
     ) {
         Collection collection = removeItemFromCollectionUseCase.execute(
                 collectionId,
-                userid,
+                UUID.fromString(userId),
                 itemId
         );
 

@@ -2,6 +2,8 @@ package com.erik.pokemonportfolio.identity.infrastructure.service;
 
 import com.erik.pokemonportfolio.identity.application.service.TokenService;
 import com.erik.pokemonportfolio.identity.domain.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -33,5 +35,28 @@ public class JwtTokenService implements TokenService {
                 .expiration(expiration)
                 .signWith(secretKey)
                 .compact();
+    }
+
+    @Override
+    public boolean isTokenValid(String token) {
+        try {
+            getClaims(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public String extractUserId(String token) {
+        return getClaims(token).getSubject();
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

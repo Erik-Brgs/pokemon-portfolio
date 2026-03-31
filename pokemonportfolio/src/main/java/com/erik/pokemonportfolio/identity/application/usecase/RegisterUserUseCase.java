@@ -1,5 +1,6 @@
 package com.erik.pokemonportfolio.identity.application.usecase;
 
+import com.erik.pokemonportfolio.identity.domain.exception.EmailAlreadyExistsException;
 import com.erik.pokemonportfolio.identity.domain.model.User;
 import com.erik.pokemonportfolio.identity.domain.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ public class RegisterUserUseCase {
 
     public User execute(String email, String displayName, String rawPassword) {
         userRepository.findByEmail(email).ifPresent(user -> {
-            throw new IllegalArgumentException("Email already in use:" + email);
+            throw new EmailAlreadyExistsException("Email already in use: " + email);
         });
 
         String passwordHash = passwordEncoder.encode(rawPassword);

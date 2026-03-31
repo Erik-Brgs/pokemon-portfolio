@@ -4,16 +4,7 @@ import java.util.UUID;
 
 public class RenameCollectionRequest {
 
-    private UUID userId;
     private String name;
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;

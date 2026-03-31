@@ -4,18 +4,9 @@ import java.util.UUID;
 
 public class AddCollectionItemRequest {
 
-    private UUID userId;
     private UUID cardId;
     private Integer quantity;
     private String condition;
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
 
     public UUID getCardId() {
         return cardId;
