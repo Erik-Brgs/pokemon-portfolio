@@ -1,0 +1,40 @@
+$kind: http-request
+url: "{{baseUrl}}/collections/{{collectionId}}/items"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"cardId\": \"{{cardId}}\",\r
+
+    \  \"quantity\": 2,\r
+
+    \  \"condition\": \"NEAR_MINT\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      const json = pm.response.json();
+
+      pm.test("Items array exists", function () {
+          pm.expect(json.items).to.be.an("array");
+          pm.expect(json.items.length).to.be.greaterThan(0);
+      });
+
+      if (json.items && json.items.length > 0) {
+          const firstItem = json.items[0];
+          pm.collectionVariables.set("itemId", firstItem.itemId);
+
+          pm.test("itemId saved", function () {
+              pm.expect(firstItem.itemId).to.exist;
+          });
+      }
+    language: text/javascript
+order: 3000

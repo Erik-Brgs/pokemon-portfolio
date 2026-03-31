@@ -1,0 +1,34 @@
+$kind: http-request
+url: "{{baseUrl}}/collections/{{collectionId}}?userId={{userId}}"
+method: GET
+queryParams:
+  userId: "{{userId}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Collection has updated name\", function () {\r
+
+      \    pm.expect(json.name).to.eql(\"Coleção atualizada\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Collection has no items after removal\", function () {\r
+
+      \    pm.expect(json.items).to.be.an(\"array\");\r
+
+      });"
+    language: text/javascript
+order: 6000

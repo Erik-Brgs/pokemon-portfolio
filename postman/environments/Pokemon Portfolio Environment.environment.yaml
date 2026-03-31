@@ -1,0 +1,20 @@
+name: Pokemon Portfolio Environment
+values:
+  - key: baseUrl
+    value: ''
+    enabled: true
+  - key: userId
+    value: ''
+    enabled: true
+  - key: cardId
+    value: ''
+    enabled: true
+  - key: collectionId
+    value: ''
+    enabled: true
+  - key: itemId
+    value: ''
+    enabled: true
+  - key: token
+    value: ''
+    enabled: true

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/auth/register"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"teste@email.com\",\r
+
+    \    \"displayName\" : \"teste\",\r
+
+    \    \"password\": \"1234567890\"\r
+
+    }"
+order: 1000

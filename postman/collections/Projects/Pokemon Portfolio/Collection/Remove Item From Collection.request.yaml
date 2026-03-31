@@ -1,0 +1,29 @@
+$kind: http-request
+url: "{{baseUrl}}/collections/{{collectionId}}/items/{{itemId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Removed item no longer exists\", function () {\r
+
+      \    const removedItemId = pm.collectionVariables.get(\"itemId\");\r
+
+      \    const found = json.items.some(item => item.itemId ===
+      removedItemId);\r
+
+      \    pm.expect(found).to.eql(false);\r
+
+      });"
+    language: text/javascript
+order: 5000

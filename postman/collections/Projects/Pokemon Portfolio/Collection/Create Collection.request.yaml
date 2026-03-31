@@ -1,0 +1,37 @@
+$kind: http-request
+url: "{{baseUrl}}/collections"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Minha coleção principal\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      \r
+
+      pm.collectionVariables.set(\"collectionId\", json.id);\r
+
+      \r
+
+      pm.test(\"collectionId saved\", function () {\r
+
+      \    pm.expect(json.id).to.exist;\r
+
+      });"
+    language: text/javascript
+order: 1000

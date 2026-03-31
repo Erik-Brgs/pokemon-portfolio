@@ -1,0 +1,33 @@
+$kind: http-request
+url: "{{baseUrl}}/collections/{{collectionId}}"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Coleção atualizada\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Collection name updated\", function () {\r
+
+      \    pm.expect(json.name).to.eql(\"Coleção atualizada\");\r
+
+      });"
+    language: text/javascript
+order: 4000

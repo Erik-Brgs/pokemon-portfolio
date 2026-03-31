@@ -1,0 +1,38 @@
+$kind: http-request
+url: "{{baseUrl}}/collections/{{collectionId}}"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOGYyZWJkNy00OGM0LTQ0MWUtYjU3Yi02MzA2ODcxMzEzNTkiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImRpc3BsYXlOYW1lIjoidGVzdGUiLCJpYXQiOjE3NzQ4MTU2ODksImV4cCI6MTc3NDkwMjA4OX0.t2T1yZHzZrNiPAgUCwN61OLC0KAGAmOImkRfKqGmEiGrltliBlatPwWeeWL7i3f-
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Collection id matches\", function () {\r
+
+      \    pm.expect(json.id).to.eql(pm.collectionVariables.get(\"collectionId\
+      \"));\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Collection belongs to user\", function () {\r
+
+      \    pm.expect(json.userId).to.eql(pm.collectionVariables.get(\"userId\")\
+      );\r
+
+      });"
+    language: text/javascript
+order: 2000
