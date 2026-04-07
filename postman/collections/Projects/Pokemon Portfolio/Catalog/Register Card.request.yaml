@@ -1,4 +1,5 @@
 $kind: http-request
+name: Register Card
 url: "{{baseUrl}}/cards"
 method: POST
 headers:
@@ -7,9 +8,9 @@ body:
   type: json
   content: "{\r
 
-    \  \"externalId\": \"base1-5\",\r
+    \  \"externalId\": \"base1-8\",\r
 
-    \  \"name\": \"Pikachu\",\r
+    \  \"name\": \"Ivysaur\",\r
 
     \  \"setName\": \"Base Set\",\r
 
@@ -18,6 +19,10 @@ body:
     \  \"rarity\": \"RARE_HOLO\"\r
 
     }"
+auth:
+  type: inherit
+  credentials:
+    id: 207f280c-140a-45eb-b95d-ee56e251f0ca
 scripts:
   - type: afterResponse
     code: "pm.test(\"Status code is 200 or 201\", function () {\r

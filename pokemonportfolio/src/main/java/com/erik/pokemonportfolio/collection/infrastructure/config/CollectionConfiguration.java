@@ -46,4 +46,9 @@ public class CollectionConfiguration {
     public RemoveItemFromCollectionUseCase removeItemFromCollectionUseCase(CollectionRepository collectionRepository) {
         return new RemoveItemFromCollectionUseCase(collectionRepository);
     }
+
+    @Bean
+    public GetCollectionsByUserIdUseCase getCollectionsByUserIdUseCase(CollectionRepository collectionRepository) {
+        return new GetCollectionsByUserIdUseCase(collectionRepository);
+    }
 }

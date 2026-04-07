@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Collections By User Id
+url: ""
+method: GET
+order: 4341376330236119

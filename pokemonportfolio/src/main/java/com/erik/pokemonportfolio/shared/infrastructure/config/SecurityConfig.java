@@ -1,6 +1,7 @@
 package com.erik.pokemonportfolio.shared.infrastructure.config;
 
 import com.erik.pokemonportfolio.identity.infrastructure.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

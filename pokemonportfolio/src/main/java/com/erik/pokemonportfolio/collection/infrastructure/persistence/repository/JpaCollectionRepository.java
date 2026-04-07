@@ -8,6 +8,7 @@ import com.erik.pokemonportfolio.collection.infrastructure.persistence.entity.Co
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class JpaCollectionRepository implements CollectionRepository {
 
@@ -50,6 +51,14 @@ public class JpaCollectionRepository implements CollectionRepository {
         entity.setItems(itemEntities);
 
         return entity;
+    }
+
+    @Override
+    public List<Collection> findAllByUserId(UUID userId) {
+        return springDataCollectionRepository.findAllByUserId(userId)
+                .stream()
+                .map(this::toDomain)
+                .toList();
     }
 
     private CollectionItemJpaEntity toItemEntity(CollectionItem item) {

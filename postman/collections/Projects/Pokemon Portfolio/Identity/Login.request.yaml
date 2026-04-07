@@ -1,13 +1,14 @@
 $kind: http-request
+name: Login
 url: "{{baseUrl}}/auth/login"
 method: POST
 body:
   type: json
   content: "{\r
 
-    \    \"email\" : \"teste@email.com\",\r
+    \    \"email\" : \"erik_brgs@outlook.com.br\",\r
 
-    \    \"password\": \"1234567890\"\r
+    \    \"password\": \"teste\"\r
 
     }"
 order: 2000

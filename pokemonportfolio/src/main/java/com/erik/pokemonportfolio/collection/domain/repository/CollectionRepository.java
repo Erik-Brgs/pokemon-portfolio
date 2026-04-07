@@ -2,6 +2,7 @@ package com.erik.pokemonportfolio.collection.domain.repository;
 
 import com.erik.pokemonportfolio.collection.domain.model.Collection;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,4 +13,6 @@ public interface CollectionRepository {
     Optional<Collection>  findById(UUID id);
 
     void delete(Collection collection);
+
+    List<Collection> findAllByUserId(UUID userId);
 }

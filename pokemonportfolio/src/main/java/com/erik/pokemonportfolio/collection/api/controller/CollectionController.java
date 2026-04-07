@@ -21,19 +21,22 @@ public class CollectionController {
     private final AddItemToCollectionUseCase addItemToCollectionUseCase;
     private final RenameCollectionUseCase renameCollectionUseCase;
     private final RemoveItemFromCollectionUseCase removeItemFromCollectionUseCase;
+    private final GetCollectionsByUserIdUseCase getCollectionsByUserIdUseCase;
 
     public CollectionController(
             CreateCollectionUseCase createCollectionUseCase,
             GetCollectionByIdUseCase getCollectionByIdUseCase,
             AddItemToCollectionUseCase addItemToCollectionUseCase,
             RenameCollectionUseCase renameCollectionUseCase,
-            RemoveItemFromCollectionUseCase removeItemFromCollectionUseCase
+            RemoveItemFromCollectionUseCase removeItemFromCollectionUseCase,
+            GetCollectionsByUserIdUseCase getCollectionsByUserIdUseCase
     ) {
         this.createCollectionUseCase = createCollectionUseCase;
         this.getCollectionByIdUseCase = getCollectionByIdUseCase;
         this.addItemToCollectionUseCase = addItemToCollectionUseCase;
         this.renameCollectionUseCase = renameCollectionUseCase;
         this.removeItemFromCollectionUseCase = removeItemFromCollectionUseCase;
+        this.getCollectionsByUserIdUseCase = getCollectionsByUserIdUseCase;
     }
 
     @PostMapping
@@ -104,6 +107,18 @@ public class CollectionController {
         );
 
         return ResponseEntity.ok(toResponse(collection));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CollectionResponse>> getAllById(
+            @AuthenticationPrincipal String userId
+    ) {
+        List<CollectionResponse> responses = getCollectionsByUserIdUseCase.execute(UUID.fromString(userId))
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
     private CollectionResponse toResponse(Collection collection) {
