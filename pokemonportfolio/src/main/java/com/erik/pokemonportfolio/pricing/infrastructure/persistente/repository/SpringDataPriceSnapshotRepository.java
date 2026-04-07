@@ -13,6 +13,6 @@ public interface SpringDataPriceSnapshotRepository extends JpaRepository<PriceSn
 
     List<PriceSnapshotJpaEntity> findAllByCardId(UUID cardId);
 
-    @Query("SELECT p FROM PriceSnapshotJpaEntity p WHERE p.cardId = :cardId ORDER BY p.capturedAd DESC LIMIT 1")
+    @Query("SELECT p FROM PriceSnapshotJpaEntity p WHERE p.cardId = :cardId ORDER BY p.capturedAt DESC LIMIT 1")
     Optional<PriceSnapshotJpaEntity> findLatestByCardId(@Param("cardId") UUID cardId);
 }

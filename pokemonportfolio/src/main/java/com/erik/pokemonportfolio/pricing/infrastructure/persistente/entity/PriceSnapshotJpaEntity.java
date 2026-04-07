@@ -31,7 +31,7 @@ public class PriceSnapshotJpaEntity {
 
     public PriceSnapshotJpaEntity() {}
 
-    public PriceSnapshotJpaEntity(UUID id, UUID cardId, BigDecimal price, String source, LocalDateTime capturedAd) {
+    public PriceSnapshotJpaEntity(UUID id, UUID cardId, BigDecimal price, String source, LocalDateTime capturedAt) {
         this.id = id;
         this.cardId = cardId;
         this.price = price;
