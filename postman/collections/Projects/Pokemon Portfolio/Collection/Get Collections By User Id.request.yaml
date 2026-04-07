@@ -1,5 +1,5 @@
 $kind: http-request
 name: Get Collections By User Id
-url: ""
+url: "{{baseUrl}}/collections"
 method: GET
 order: 4341376330236119

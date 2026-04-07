@@ -1,6 +1,7 @@
 package com.erik.pokemonportfolio.shared.api.exception;
 
 import com.erik.pokemonportfolio.catalog.domain.exception.CardNotFoundException;
+import com.erik.pokemonportfolio.pricing.domain.exception.PriceSnapshotNotFoundException;
 import com.erik.pokemonportfolio.shared.api.dto.ErrorResponse;
 import com.erik.pokemonportfolio.catalog.domain.exception.CardAlreadyExistsException;
 import com.erik.pokemonportfolio.catalog.domain.exception.InvalidCardException;
@@ -120,6 +121,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CardNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCardNotFound(CardNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Not Found",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(PriceSnapshotNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePriceSnapshotNotFound(PriceSnapshotNotFoundException ex) {
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
