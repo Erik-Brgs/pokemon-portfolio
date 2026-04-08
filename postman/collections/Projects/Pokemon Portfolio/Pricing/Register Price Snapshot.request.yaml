@@ -1,0 +1,16 @@
+$kind: http-request
+name: Register Price Snapshot
+url: "{{baseUrl}}/prices"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"cardId\": \"{{cardId}}\", \r
+
+    \  \"price\": 150.50,\r
+
+    \  \"source\": \"TCGPlayer\"\r
+
+    }"
+order: 1775603584203

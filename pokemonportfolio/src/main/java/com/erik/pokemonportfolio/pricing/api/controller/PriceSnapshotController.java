@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/prices")
+    @RequestMapping("/prices")
 public class PriceSnapshotController {
 
     private final RegisterPriceSnapshotUseCase registerPriceSnapshotUseCase;
